@@ -11,6 +11,7 @@ export default class WeatherList extends Component {
 
     return (
       <tr key={name}>
+        <td>{name}</td>
         <td><Chart data={temps} color="red" units="K"/></td>
         <td><Chart data={temps} color="yellow" units="hPa"/></td>
         <td><Chart data={temps} color="green" units="%"/></td>
