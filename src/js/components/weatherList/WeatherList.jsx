@@ -19,7 +19,8 @@ export default class WeatherList extends Component {
   }
 
   render() {
-    return (
+    console.log(this.props.weather);
+    return this.props.weather && (
       <table className="table table-hover">
         <thead>
           <tr>

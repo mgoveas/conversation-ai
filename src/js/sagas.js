@@ -4,8 +4,8 @@ import {getWeather} from './Api';
 // worker Saga: will be fired on FETCH_WEATHER action
 function* fetchWeather(action) {
    try {
-      const user = yield call(getWeather, action.payload.city);
-      yield put({type: "FETCH_WEATHER_SUCCEEDED", user: user});
+      const weather = yield call(getWeather, action.payload);
+      yield put({type: "FETCH_WEATHER_SUCCEEDED", response: weather.data});
    } catch (e) {
       yield put({type: "FETCH_WEATHER_FAILED", message: e.message});
    }
