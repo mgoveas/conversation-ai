@@ -1,5 +1,7 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import {getWeather} from './Api';
+import {loadState} from './store/server/loadState';
+import {updateInitialState} from './actions';
 
 // worker Saga: will be fired on FETCH_WEATHER action
 function* fetchWeather(action) {
@@ -11,13 +13,17 @@ function* fetchWeather(action) {
    }
 }
 
-/*
-  Starts fetchUser on each dispatched `USER_FETCH_REQUESTED` action.
-  Allows concurrent fetches of user.
-*/
-function* mySaga() {
-  yield takeEvery("FETCH_WEATHER", fetchWeather);
-  console.log("test");
+function* loadInitialState() {
+    console.log("loading initial state");
+    try{
+      const initialState = yield call(loadState);
+      console.log(initialState);
+      yield put(updateInitialState(initialState));
+    } catch(e) {
+      console.log("some loading error", e);
+    }
 }
 
-export default mySaga;
+export default function* rootSaga() {
+  yield takeLatest("LOAD_INITIAL_STATE", loadInitialState);
+}

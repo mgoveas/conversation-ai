@@ -6,3 +6,10 @@ export function getWeather(city) {
     const request = axios.get(url);
     return request;
 }
+
+
+export function getData(node) {
+    const url = `http://localhost:3001/ajax/{$node}`;
+    const request = axios.get(url);
+    return request;
+}
