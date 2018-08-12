@@ -1,17 +1,17 @@
 import queryString from 'query-string';
-import { getJSONLD } from './lib/jsonld';
+import { getJSONLD } from './jsonld';
 import {
-	addCartItem,
-	deleteCartItem,
-	updateCartItemQuantiry,
+	// addCartItem,
+	// deleteCartItem,
+	// updateCartItemQuantiry,
 	fetchMoreProducts,
 	setSort,
-	fetchShippingMethods,
-	fetchPaymentMethods,
-	updateCart,
-	updateShippingAddress,
-	updateBillingAddress,
-	checkout
+	//fetchShippingMethods,
+	//fetchPaymentMethods,
+	// updateCart,
+	// updateShippingAddress,
+	// updateBillingAddress,
+	// checkout
 } from './actions';
 
 const setQuery = (history, query) => {
@@ -31,36 +31,36 @@ export const mapStateToProps = (state, ownProps) => {
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		addCartItem: item => {
-			dispatch(addCartItem(item));
-		},
-		deleteCartItem: item_id => {
-			dispatch(deleteCartItem(item_id));
-		},
-		updateCartItemQuantiry: (item_id, quantity) => {
-			dispatch(updateCartItemQuantiry(item_id, quantity));
-		},
-		updateCart: (data, callback) => {
-			dispatch(updateCart(data, callback));
-		},
-		updateShippingAddress: shippingAddress => {
-			dispatch(updateShippingAddress(shippingAddress));
-		},
-		updateBillingAddress: billingAddress => {
-			dispatch(updateBillingAddress(billingAddress));
-		},
-		checkout: data => {
-			dispatch(checkout(data, ownProps.history));
-		},
+		// addCartItem: item => {
+		// 	dispatch(addCartItem(item));
+		// },
+		// deleteCartItem: item_id => {
+		// 	dispatch(deleteCartItem(item_id));
+		// },
+		// updateCartItemQuantiry: (item_id, quantity) => {
+		// 	dispatch(updateCartItemQuantiry(item_id, quantity));
+		// },
+		// updateCart: (data, callback) => {
+		// 	dispatch(updateCart(data, callback));
+		// },
+		// updateShippingAddress: shippingAddress => {
+		// 	dispatch(updateShippingAddress(shippingAddress));
+		// },
+		// updateBillingAddress: billingAddress => {
+		// 	dispatch(updateBillingAddress(billingAddress));
+		// },
+		// checkout: data => {
+		// 	dispatch(checkout(data, ownProps.history));
+		// },
 		loadMoreProducts: () => {
 			dispatch(fetchMoreProducts());
 		},
-		loadShippingMethods: () => {
-			dispatch(fetchShippingMethods());
-		},
-		loadPaymentMethods: () => {
-			dispatch(fetchPaymentMethods());
-		},
+		// loadShippingMethods: () => {
+		// 	dispatch(fetchShippingMethods());
+		// },
+		// loadPaymentMethods: () => {
+		// 	dispatch(fetchPaymentMethods());
+		// },
 		setSearch: search => {
 			const query = queryString.parse(ownProps.history.location.search);
 			query.search = search;

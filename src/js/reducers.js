@@ -2,7 +2,13 @@ import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import * as t from './constants';
 
-const initialState = {};
+const initialState = {
+	currentPage: {path: "/", type: "page"},
+	settings: {},
+	productFilter: {},
+	pageDetails: {},
+	categories: []
+};
 
 const appReducer = (state = initialState, action) => {
 	switch (action.type) {

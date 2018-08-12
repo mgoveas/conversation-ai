@@ -1,5 +1,5 @@
 import { getParentIds } from './helper';
-import { PAGE, PRODUCT_CATEGORY, PRODUCT, RESERVED } from '../pageTypes';
+import { PAGE, PRODUCT_CATEGORY, PRODUCT, RESERVED } from './store/shared/pageTypes';
 
 const getBreadcrumbsForProduct = (product, categories) => {
 	if (product && product.category_id) {

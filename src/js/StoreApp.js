@@ -18,6 +18,8 @@ import SearchContainer from './containers/search';
 import { setCurrentPage, initializeApp } from './actions';
 import { PAGE, PRODUCT_CATEGORY, PRODUCT, RESERVED, SEARCH } from './store/shared/pageTypes';
 
+import "../scss/theme.scss";
+
 class SwitchContainers extends React.Component {
 	constructor(props) {
 		super(props);

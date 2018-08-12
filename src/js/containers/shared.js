@@ -1,28 +1,12 @@
 import React from 'react';
-import { themeSettings, text } from '../lib/settings';
-import Header from '../components/header';
-import Footer from '../components/footer';
-const Fragment = React.Fragment;
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { mapStateToProps, mapDispatchToProps } from '../containerProps';
+import SharedContainer from '../components/shared';
 
-const SharedContainer = props => {
-	console.log(props);
-	//const { currentPage, settings } = props.state;
-	const currentPage = {
-		path: "something"
-	};
-	const settings = {};
-	let hideFooter =
-		(currentPage.path === '/checkout-success' ||
-			currentPage.path === '/checkout') &&
-		themeSettings.hide_footer_on_checkout === true;
-
-	return (
-		<Fragment>
-			<Header {...props} />
-			{props.children}
-			{!hideFooter && <Footer settings={settings} />}
-		</Fragment>
-	);
-};
-
-export default SharedContainer;
+export default withRouter(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(SharedContainer)
+);

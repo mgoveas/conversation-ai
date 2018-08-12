@@ -2,16 +2,17 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 //import { themeSettings, text } from '../../lib/settings';
 
-import Cart from './cart';
-import CartIndicator from './cartIndicator';
+//import Cart from './cart';
+//import CartIndicator from './cartIndicator';
 import SearchBox from './searchBox';
 import HeadMenu from './headMenu';
+import logo from '../../../assets/logo.svg';
 
 const Fragment = React.Fragment;
 
 const Logo = ({ src, onClick, alt }) => (
 	<NavLink className="logo-image" to="/" onClick={onClick}>
-		<img src={src} alt={alt} />
+		<img src={src} alt={alt} width="50" height="50"/>
 	</NavLink>
 );
 
@@ -129,6 +130,8 @@ export default class Header extends React.Component {
 		const showBackButton =
 			currentPage.type === 'product' && location.hasHistory;
 
+		settings.logo = logo;
+
 		return (
 			<Fragment>
 				<header
@@ -169,7 +172,7 @@ export default class Header extends React.Component {
 									}
 								/>
 
-								<CartIndicator
+								{/* <CartIndicator
 									cart={cart}
 									onClick={this.cartToggle}
 									cartIsActive={this.state.cartIsActive}
@@ -183,7 +186,7 @@ export default class Header extends React.Component {
 										settings={settings}
 										cartToggle={this.cartToggle}
 									/>
-								</div>
+								</div> */}
 							</div>
 						</div>
 
