@@ -1,6 +1,20 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 //import { themeSettings, text } from '../../lib/settings';
+import { ThemeProvider } from 'styled-components';
+import ChatBotContainer from '../../lib/ChatBotContainer';
+
+const otherFontTheme = {
+  background: '#f5f8fb',
+  fontFamily: 'Helvetica Neue',
+  headerBgColor: '#6e48aa',
+  headerFontColor: '#fff',
+  headerFontSize: '16px',
+  botBubbleColor: '#6E48AA',
+  botFontColor: '#fff',
+  userBubbleColor: '#fff',
+  userFontColor: '#4a4a4a',
+};
 
 export default class SearchBox extends React.Component {
 	constructor(props) {
@@ -84,6 +98,9 @@ export default class SearchBox extends React.Component {
 							onClick={this.handleClear}
 						/>
 					)}
+					<ThemeProvider theme={otherFontTheme}>
+						<ChatBotContainer steps={this.props.chatbotSteps} floating={true}/>
+					</ThemeProvider>
 			</div>
 		);
 	}

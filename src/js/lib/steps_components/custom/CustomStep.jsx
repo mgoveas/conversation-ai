@@ -29,6 +29,7 @@ class CustomStep extends Component {
   }
 
   renderComponent() {
+    console.log("rednering custom component", this.props);
     const { step, steps, previousStep, triggerNextStep } = this.props;
     const { component } = step;
     return React.cloneElement(component, {

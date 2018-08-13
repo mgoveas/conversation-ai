@@ -1,19 +1,46 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import * as t from './constants';
+import React from 'react';
+import DBPedia from './components/DBPedia';
 
 const initialState = {
 	currentPage: {path: "/", type: "page"},
 	settings: {},
 	productFilter: {},
 	pageDetails: {},
-	categories: []
+	categories: [],
+	chatbotSteps: [
+		{
+			id: '1',
+			message: 'Type something to search on Wikipédia. (Ex.: Brazil)',
+			trigger: 'search',
+		},
+		{
+			id: 'search',
+			user: true,
+			trigger: '3',
+		},
+		{
+			id: '3',
+			component: <DBPedia />,
+			waitAction: true,
+			trigger: '1',
+		}
+	]
 };
 
 const appReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case "UPDATE_INITIAL_STATE":
 			return Object.assign({}, state, action.payload.state.app);
+		// case "CHATBOT_USER_INPUT":
+		// 	const currentSteps = state.chatbotSteps;
+		// 	const newSteps = chatbotSteps.add({
+		// 			id: '4',
+		// 			end: true
+		// 		});
+		// 	return Object.assign({}, state, {chatbotSteps: newSteps});
 		case t.PRODUCT_RECEIVE:
 			return Object.assign({}, state, { productDetails: action.product });
 
@@ -104,7 +131,6 @@ const appReducer = (state = initialState, action) => {
 		case t.CART_ITEM_UPDATE_REQUEST:
 		case t.SITEMAP_REQUEST:
 		default:
-			console.log("default reducer returning state");
 			return state;
 	}
 };

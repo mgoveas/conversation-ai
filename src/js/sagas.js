@@ -1,4 +1,4 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { call, put, takeEvery, takeLatest, all } from 'redux-saga/effects'
 import {getWeather} from './Api';
 import {loadState} from './store/server/loadState';
 import {updateInitialState} from './actions';
@@ -24,6 +24,18 @@ function* loadInitialState() {
     }
 }
 
+function* loadFakeResults(keyword) {
+
+}
+
+function* fetchData(payload) {
+  console.log("fetching data from endpoint", payload.value);
+  yield call(loadFakeResults, payload.value);
+}
+
 export default function* rootSaga() {
-  yield takeLatest("LOAD_INITIAL_STATE", loadInitialState);
+  yield all[
+    yield takeLatest("LOAD_INITIAL_STATE", loadInitialState),
+    yield takeEvery("CHATBOT_USER_ACTION", fetchData)
+  ];
 }

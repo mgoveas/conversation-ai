@@ -409,6 +409,8 @@ class ChatBot extends Component {
       }, () => {
         this.input.blur();
       });
+
+      this.props.handleUserAction(this.state.inputValue);
     }
   }
 
@@ -452,6 +454,7 @@ class ChatBot extends Component {
   }
 
   renderStep(step, index) {
+    console.log(step);
     const { renderedSteps } = this.state;
     const {
       avatarStyle,

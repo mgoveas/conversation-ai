@@ -27,6 +27,13 @@ export function updateInitialState(initialState) {
     };
 }
 
+export function handleChatBotUserAction(value) {
+	return {
+		type: "CHATBOT_USER_ACTION",
+		payload: value
+	};
+}
+
 const requestProduct = () => ({ type: t.PRODUCT_REQUEST });
 
 const receiveProduct = product => ({ type: t.PRODUCT_RECEIVE, product });

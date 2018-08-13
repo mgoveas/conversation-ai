@@ -18,7 +18,7 @@ import SearchContainer from './containers/search';
 import { setCurrentPage, initializeApp } from './actions';
 import { PAGE, PRODUCT_CATEGORY, PRODUCT, RESERVED, SEARCH } from './store/shared/pageTypes';
 
-import "../scss/theme.scss";
+import "../scss/theme.css";
 
 class SwitchContainers extends React.Component {
 	constructor(props) {
@@ -82,8 +82,7 @@ class SwitchContainers extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log("mstp");
-	return {
+    return {
 		currentPage: state.app.currentPage
 	};
 };

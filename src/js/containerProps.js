@@ -23,7 +23,6 @@ const setQuery = (history, query) => {
 };
 
 export const mapStateToProps = (state, ownProps) => {
-	console.log("container props", state);
 	return {
 		state: state.app
 	};

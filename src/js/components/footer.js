@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { themeSettings, text } from '../lib/settings';
+import logo from '../../assets/logo.svg';
 
 class FooterMenu extends React.Component {
 	constructor(props) {
@@ -86,6 +87,7 @@ const Contacts = ({ contacts }) => {
 export default class Footer extends React.PureComponent {
 	render() {
 		const { settings } = this.props;
+		settings.logo = logo;
 		const footerLogoUrl =
 			themeSettings.footer_logo_url && themeSettings.footer_logo_url.length > 0
 				? '/assets/images/' + themeSettings.footer_logo_url

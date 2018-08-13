@@ -10,6 +10,7 @@ import logo from '../../../assets/logo.svg';
 
 const Fragment = React.Fragment;
 
+
 const Logo = ({ src, onClick, alt }) => (
 	<NavLink className="logo-image" to="/" onClick={onClick}>
 		<img src={src} alt={alt} width="50" height="50"/>
@@ -122,7 +123,8 @@ export default class Header extends React.Component {
 			settings,
 			currentPage,
 			location,
-			productFilter
+			productFilter,
+			chatbotSteps
 		} = this.props.state;
 		const classToggle = this.state.mobileMenuIsActive
 			? 'navbar-burger is-hidden-tablet is-active'
@@ -170,6 +172,7 @@ export default class Header extends React.Component {
 									className={
 										this.state.mobileSearchIsActive ? 'search-active' : ''
 									}
+									chatbotSteps={chatbotSteps}
 								/>
 
 								{/* <CartIndicator
