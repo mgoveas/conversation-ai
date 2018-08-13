@@ -1,4 +1,10 @@
 import {FETCH_WEATHER} from './constants';
+import * as t from './constants';
+import api from './store/client/api';
+import queryString from 'query-string';
+import { animateScroll } from 'react-scroll';
+//import * as analytics from './analytics';
+import { PAGE, PRODUCT_CATEGORY, PRODUCT, RESERVED, SEARCH } from './store/shared/pageTypes';
 
 export function fetchWeather(city){
   return {
