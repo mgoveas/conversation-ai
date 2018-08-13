@@ -7,9 +7,19 @@ import registerServiceWorker from './js/registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
+// ReactDOM.render(
+//     <Provider store={configureStore()}>
+//         <StoreApp />
+//     </Provider>,
+//     document.getElementById('root'));
+
+
 ReactDOM.render(
-    <Provider store={configureStore()}>
-        <App />
-    </Provider>,
-    document.getElementById('root'));
+	<Provider store={configureStore()}>
+		<BrowserRouter>
+			<StoreApp />
+		</BrowserRouter>
+	</Provider>,
+	document.getElementById('root')
+);
 registerServiceWorker();
