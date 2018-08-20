@@ -1,5 +1,4 @@
 import queryString from 'query-string';
-import { getJSONLD } from './jsonld';
 import {
 	// addCartItem,
 	// deleteCartItem,
@@ -126,9 +125,6 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 			if (ownProps.history.length > 0) {
 				ownProps.history.goBack();
 			}
-		},
-		getJSONLD: state => {
-			return getJSONLD(state);
 		}
 	};
 };

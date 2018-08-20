@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-//import Random from 'random-id';
 import { CustomStep, OptionsStep, TextStep } from './steps_components';
 import schema from './schemas/schema';
 import * as storage from './storage';
@@ -16,9 +15,7 @@ import {
   Input,
   SubmitButton,
 } from './components';
-import Recognition from './recognition';
-import { ChatIcon, CloseIcon, SubmitIcon, MicIcon } from './icons';
-import { isMobile } from './utils';
+import { ChatIcon, CloseIcon, SubmitIcon } from './icons';
 
 class ChatBot extends Component {
   /* istanbul ignore next */
@@ -35,8 +32,6 @@ class ChatBot extends Component {
       opened: props.opened || !props.floating,
       inputValue: '',
       inputInvalid: false,
-      speaking: false,
-      recognitionEnable: props.recognitionEnable && Recognition.isSupported(),
       defaultUserSettings: {},
     };
 
@@ -46,9 +41,6 @@ class ChatBot extends Component {
     this.triggerNextStep = this.triggerNextStep.bind(this);
     this.onResize = this.onResize.bind(this);
     this.onValueChange = this.onValueChange.bind(this);
-    this.onRecognitionChange = this.onRecognitionChange.bind(this);
-    this.onRecognitionEnd = this.onRecognitionEnd.bind(this);
-    this.onRecognitionStop = this.onRecognitionStop.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleSubmitButton = this.handleSubmitButton.bind(this);
   }
@@ -108,9 +100,7 @@ class ChatBot extends Component {
     }, () => {
       // focus input if last step cached is a user step
       this.setState({ disabled: false }, () => {
-        if (enableMobileAutoFocus || !isMobile()) {
-          this.input.focus();
-        }
+        this.input.focus();
       });
     });
 
@@ -127,16 +117,6 @@ class ChatBot extends Component {
   }
 
   componentDidMount() {
-    const { recognitionEnable } = this.state;
-    const { recognitionLang } = this.props;
-    if (recognitionEnable) {
-      this.recognition = new Recognition(
-        this.onRecognitionChange,
-        this.onRecognitionEnd,
-        this.onRecognitionStop,
-        recognitionLang,
-      );
-    }
     this.content.addEventListener('DOMNodeInserted', this.onNodeInserted);
     window.addEventListener('resize', this.onResize);
   }
@@ -160,19 +140,6 @@ class ChatBot extends Component {
 
   onResize() {
     this.content.scrollTop = this.content.scrollHeight;
-  }
-
-  onRecognitionChange(value) {
-    this.setState({ inputValue: value });
-  }
-
-  onRecognitionEnd() {
-    this.setState({ speaking: false });
-    this.handleSubmitButton();
-  }
-
-  onRecognitionStop() {
-    this.setState({ speaking: false });
   }
 
   onValueChange(event) {
@@ -280,9 +247,7 @@ class ChatBot extends Component {
       this.setState({ renderedSteps, currentStep, previousStep }, () => {
         if (nextStep.user) {
           this.setState({ disabled: false }, () => {
-            if (enableMobileAutoFocus || !isMobile()) {
-              this.input.focus();
-            }
+            this.input.focus();
           });
         } else {
           renderedSteps.push(nextStep);
@@ -374,14 +339,7 @@ class ChatBot extends Component {
   }
 
   handleSubmitButton() {
-    const { inputValue, speaking, recognitionEnable } = this.state;
-    if ((_.isEmpty(inputValue) || speaking) && recognitionEnable) {
-      this.recognition.speak();
-      if (!speaking) {
-        this.setState({ speaking: true });
-      }
-      return;
-    }
+    const { inputValue } = this.state;
     this.submitUserMessage();
   }
 
@@ -434,9 +392,7 @@ class ChatBot extends Component {
             inputInvalid: false,
             disabled: false,
           }, () => {
-            if (enableMobileAutoFocus || !isMobile()) {
-              this.input.focus();
-            }
+            this.input.focus();
           });
         }, 2000);
       });
@@ -520,9 +476,7 @@ class ChatBot extends Component {
       inputInvalid,
       inputValue,
       opened,
-      renderedSteps,
-      speaking,
-      recognitionEnable,
+      renderedSteps
     } = this.state;
     const {
       className,
@@ -537,7 +491,6 @@ class ChatBot extends Component {
       inputStyle,
       placeholder,
       inputAttributes,
-      recognitionPlaceholder,
       style,
       submitButtonStyle,
       width,
@@ -555,11 +508,9 @@ class ChatBot extends Component {
       </Header>
     );
 
-    const icon =
-      (_.isEmpty(inputValue) || speaking) && recognitionEnable ? <MicIcon /> : <SubmitIcon />;
+    const icon = <SubmitIcon />;
 
-    const inputPlaceholder = speaking ? recognitionPlaceholder :
-      currentStep.placeholder || placeholder;
+    const inputPlaceholder = currentStep.placeholder || placeholder;
 
     const inputAttributesOverride = currentStep.inputAttributes || inputAttributes;
 
@@ -620,7 +571,6 @@ class ChatBot extends Component {
                 onClick={this.handleSubmitButton}
                 invalid={inputInvalid}
                 disabled={disabled}
-                speaking={speaking}
               >
                 {icon}
               </SubmitButton>
@@ -660,9 +610,6 @@ ChatBot.propTypes = {
   opened: PropTypes.bool,
   toggleFloating: PropTypes.func,
   placeholder: PropTypes.string,
-  recognitionEnable: PropTypes.bool,
-  recognitionLang: PropTypes.string,
-  recognitionPlaceholder: PropTypes.string,
   steps: PropTypes.array.isRequired,
   style: PropTypes.object,
   submitButtonStyle: PropTypes.object,
@@ -698,9 +645,6 @@ ChatBot.defaultProps = {
   opened: undefined,
   placeholder: 'Type the message ...',
   inputAttributes: {},
-  recognitionEnable: false,
-  recognitionLang: 'en',
-  recognitionPlaceholder: 'Listening ...',
   style: {},
   submitButtonStyle: {},
   toggleFloating: undefined,
