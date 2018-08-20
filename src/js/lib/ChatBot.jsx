@@ -114,6 +114,8 @@ class ChatBot extends Component {
       });
     });
 
+    console.log("already rendered steps", renderedSteps);
+
     this.setState({
       currentStep,
       defaultUserSettings,
@@ -511,6 +513,7 @@ class ChatBot extends Component {
   }
 
   render() {
+    console.log("in chat bot component", this.props.steps, this.state.renderedSteps);
     const {
       currentStep,
       disabled,

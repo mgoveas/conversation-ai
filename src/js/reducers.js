@@ -19,7 +19,7 @@ const initialChatbotSteps = [
 		id: '3',
 		component: <DBPedia />,
 		waitAction: true,
-		trigger: '1',
+		trigger: 'search',
 	}
 ];
 

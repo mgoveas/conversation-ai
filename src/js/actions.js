@@ -21,6 +21,7 @@ export function initializeApp() {
 }
 
 export function updateInitialState(initialState) {
+	console.log("initial state", initialState);
     return {
 		type: "UPDATE_INITIAL_STATE",
 		payload: initialState
@@ -42,6 +43,7 @@ export function handleToggleFloating(value) {
 }
 
 export function updateResults(results) {
+	console.log("update results", results);
 	return {
 		type: "SEARCH_SUCCEEDED",
 		payload: results

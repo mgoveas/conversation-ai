@@ -1,7 +1,6 @@
 import { call, put, takeEvery, takeLatest, all } from 'redux-saga/effects'
-import {loadState} from './store/server/loadState';
+//import {loadState} from './store/server/loadState';
 import {updateInitialState, updateResults, requestProducts, receiveProducts} from './actions';
-import {fakeData} from '../fakeData';
 import api from './store/client/api';
 
 
@@ -16,18 +15,18 @@ function getProducts() {
 function* loadInitialState() {
     console.log("loading initial state");
     try{
-      const initialState = yield call(loadState);
-      yield put(updateInitialState(initialState));
-      yield put(requestProducts());
-      const products = yield call(getProducts);
-      yield put(receiveProducts(products));
+      //const initialState = yield call(loadState);
+      yield put(updateInitialState({state: {app: {}}}));
+      // yield put(requestProducts());
+      // const products = yield call(getProducts);
+      // yield put(receiveProducts(products));
     } catch(e) {
       console.log("some loading error", e);
     }
 }
 
 function* loadFakeResults(keyword) {
-    yield put(updateResults(fakeData));
+    yield put(updateResults());
 }
 
 function* fetchData(payload) {
